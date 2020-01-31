@@ -1,0 +1,25 @@
+12 30 social 19:45 22:00 112 Party
+
+12 30 school 13:00 15:20 English class
+
+12 30 work 10:00 12:00 112 Recitation TAing
+
+12 15 school 9:50 11:30 Math class
+
+12 16 school 9:50 11:30 Math class
+
+12 17 school 9:50 11:30 Math class
+
+12 18 school 9:50 11:30 Math class
+
+12 19 school 9:50 11:30 Math class
+
+12 20 school 9:50 11:30 Math class
+
+12 21 school 9:50 11:30 Math class
+
+12 6 social 19:00 22:00 Calvin Harris Concert
+
+
+
+
