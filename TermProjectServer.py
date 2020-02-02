@@ -9,7 +9,7 @@ import threading
 from queue import Queue
 
 #Kyle's code from 15112 Manual - Socket  
-HOST = "73.10.205.211"
+HOST = "128.237.188.103"
 PORT = 50340
 BACKLOG = 4
 

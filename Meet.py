@@ -91,7 +91,7 @@ class Calendar(object):
                     #Strip message of extra outer whitespace
                     msg = msg.strip()
                     temp = [("event",  priority, startFormatted, endFormatted, msg)]
-                    if dates[(month, day)] == None:
+                    if (dates[(month,day)] == None):
                         dates[(month,day)] = temp
                     else:
                         dates[(month,day)] += temp

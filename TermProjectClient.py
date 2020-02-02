@@ -8,7 +8,7 @@ import socket
 import threading
 from queue import Queue
 
-HOST = "73.10.205.211" # put your IP address here if playing on multiple computers
+HOST = "128.237.188.103" # put your IP address here if playing on multiple computers
 PORT = 50340
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
