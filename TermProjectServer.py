@@ -1,8 +1,4 @@
 #############################
-# Sockets Server Demo
-# by Rohan Varma
-# adapted by Kyle Chin
-#############################
 
 import socket
 import threading
