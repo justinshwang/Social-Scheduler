@@ -18,7 +18,7 @@ class Profile(object):
 ##########################
 #Calendar Class
 ##########################
-
+		
 #Describes a schedule
 class Calendar(object):
     #Store info about scheduled meetings as well as current date and time

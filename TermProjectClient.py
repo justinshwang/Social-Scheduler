@@ -1,7 +1,5 @@
 #############################
-# Sockets Client Demo
-# by Rohan Varma
-# adapted by Kyle Chin
+# Sockets Client
 #############################
 
 import socket
