@@ -6,9 +6,19 @@ import socket
 import threading
 from queue import Queue
 
-#Kyle's code from 15112 Manual - Socket  
-HOST = "128.237.188.103"
-PORT = 50340
+def get_Host_name_IP(): 
+    try: 
+        host_name = socket.gethostname() 
+        host_ip = socket.gethostbyname(host_name) 
+        print("Hostname :  ",host_name) 
+        print("IP : ",host_ip) 
+        return host_ip
+    except: 
+        print("Unable to get Hostname and IP")
+
+
+HOST = get_Host_name_IP()
+PORT = 80
 BACKLOG = 4
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 

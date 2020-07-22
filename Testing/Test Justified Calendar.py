@@ -2,10 +2,6 @@
 import calendar, datetime, math, string
 from tkinter import *
 
-####################################
-# customize these functions
-####################################
-
 def init(data):
     # load data.xyz as appropriate
     today = datetime.date.today()
@@ -55,7 +51,6 @@ def redrawAll(canvas, data):
         #Space lines of calendar
         y += 20
    
-## JUSTIFIED TEXT from 15112 week3, hw3, created by me (Andrew ID: justinw1) ##
 
 def spaceCorrectly(t):
     newtext = ""
