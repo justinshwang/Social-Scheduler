@@ -8,5 +8,5 @@ From Pyzo, the user can run the server.py file. Before launching clients, ensure
 Next, on the same command prompt or window, enter Name (which must be Eric and subsequently for other user Justin), press enter; enter schedule files. For schedule files 
 already included, enter "schedule1.txt" and for the other user "schedule2.txt".
 
-Application was reorganized and containerized using Docker.
+Application was reorganized and containerized using Docker. Add requirements to requirements.txt
 

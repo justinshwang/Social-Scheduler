@@ -5,19 +5,26 @@
 import socket
 import threading
 from queue import Queue
+from settings import SERVER_HOST, SERVER_PORT
 
 def get_Host_name_IP(): 
     try: 
-        host_name = socket.gethostname() 
-        host_ip = socket.gethostbyname(host_name) 
-        print("Hostname :  ",host_name) 
-        print("IP : ",host_ip) 
-        return host_ip
+        if SERVER_HOST != "":
+              return SERVER_HOST
+        else:
+          host_name = socket.gethostname() 
+          host_ip = socket.gethostbyname(host_name) 
+          print("Hostname :  ",host_name) 
+          print("IP : ",host_ip) 
+          return host_ip
     except: 
         print("Unable to get Hostname and IP")
 
 HOST = get_Host_name_IP() # put your IP address here if playing on multiple computers
-PORT = 80
+if SERVER_PORT != "":
+  PORT = SERVER_PORT
+else:
+  PORT = 80
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
