@@ -16,7 +16,6 @@ def get_Host_name_IP():
     except: 
         print("Unable to get Hostname and IP")
 
-
 HOST = get_Host_name_IP()
 PORT = 80
 BACKLOG = 4
@@ -63,7 +62,7 @@ def serverThread(clientele, serverChannel):
     print()
     serverChannel.task_done()
     
-#Each player can be added 
+#Each client can be added 
 
 clientele = dict()
 playerNum = 0

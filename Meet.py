@@ -56,7 +56,7 @@ class Calendar(object):
         dates = self.newCalendar()
         
         #Reads file and interprets information regarding event times
-        with open(schedule, "rt") as f:
+        with open("assets/" + schedule + ".txt", "rt") as f:
             #Seperate event by line
             for line in f:
                 line = line.strip()
@@ -91,7 +91,7 @@ class Calendar(object):
                     #Strip message of extra outer whitespace
                     msg = msg.strip()
                     temp = [("event",  priority, startFormatted, endFormatted, msg)]
-                    if (dates[(month,day)] == None):
+                    if ((month,day) not in dates):
                         dates[(month,day)] = temp
                     else:
                         dates[(month,day)] += temp
