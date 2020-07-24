@@ -56,7 +56,7 @@ class Calendar(object):
         dates = self.newCalendar()
         
         #Reads file and interprets information regarding event times
-        with open("assets/" + schedule + ".txt", "rt") as f:
+        with open("assets/" + schedule, "rt") as f:
             #Seperate event by line
             for line in f:
                 line = line.strip()

@@ -41,10 +41,10 @@ def handleServerMsg(server, serverMsg):
 
 import random, math, copy, string, ast, time
 from tkinter import*
-from image_util import*
-from Meet import *
-from ScheduleAlgorithms import*
-from GeneralAppFunctioning import*
+from modules.image_util import*
+from modules.Meet import *
+from modules.ScheduleAlgorithms import*
+from modules.GeneralAppFunctioning import*
 
 ####################################
 # Function specific to Meet Application for Client operation
@@ -52,7 +52,7 @@ from GeneralAppFunctioning import*
 
 def init(data):
   name = input("Enter Name: ")
-  calendar = input("Enter Schedule Filename (i.e. schedule1): ")
+  calendar = input("Enter Schedule Filename (i.g. schedule1.txt): ")
   disturb = False
   data.me = Profile(name, disturb, calendar)
   data.otherFriends = dict()

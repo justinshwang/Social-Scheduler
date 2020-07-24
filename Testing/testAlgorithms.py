@@ -409,7 +409,7 @@ def meetRedrawAll(canvas, data):
 
   
 ####################################
-# use the run function as-is - framework taken from 15112 website
+# use the run function as-is 
 ####################################
 
 def run(width, height):
