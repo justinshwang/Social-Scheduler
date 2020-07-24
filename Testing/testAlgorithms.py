@@ -1,4 +1,3 @@
-#image_util import taken from 15112 site
 import random, math, copy, string
 from tkinter import*
 from image_util import*
@@ -410,7 +409,7 @@ def meetRedrawAll(canvas, data):
 
   
 ####################################
-# use the run function as-is - framework taken from 15112 website
+# use the run function as-is 
 ####################################
 
 def run(width, height):

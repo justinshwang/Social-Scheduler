@@ -1,8 +1,8 @@
 #image_util import taken from 15112 site 
 import random, math, copy, string, ast, time, datetime
 from tkinter import*
-from image_util import*
-from Meet import *
+from app.modules.image_util import*
+from app.modules.Meet import *
 
 ## Programming logic for determining result of inputted time
 

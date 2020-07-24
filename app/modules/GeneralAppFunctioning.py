@@ -1,7 +1,6 @@
-#image_util import taken from 15112 site 
 import random, math, copy, string, ast, time
 from tkinter import*
-from image_util import*
+from app.modules.image_util import*
 
 ## GENERAL FUNCTIONS (Applicable to animating in all three modes) ##
 

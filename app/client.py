@@ -5,9 +5,26 @@
 import socket
 import threading
 from queue import Queue
+from settings import SERVER_HOST, SERVER_PORT
 
-HOST = "128.237.188.103" # put your IP address here if playing on multiple computers
-PORT = 50340
+def get_Host_name_IP(): 
+    try: 
+        if SERVER_HOST != "":
+              return SERVER_HOST
+        else:
+          host_name = socket.gethostname() 
+          host_ip = socket.gethostbyname(host_name) 
+          print("Hostname :  ",host_name) 
+          print("IP : ",host_ip) 
+          return host_ip
+    except: 
+        print("Unable to get Hostname and IP")
+
+HOST = get_Host_name_IP() # put your IP address here if playing on multiple computers
+if SERVER_PORT != "":
+  PORT = SERVER_PORT
+else:
+  PORT = 80
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -27,16 +44,14 @@ def handleServerMsg(server, serverMsg):
       serverMsg.put(readyMsg)
       command = msg.split("\n")
 
-# events-example0.py from 15-112 website
 # Barebones timer, mouse, and keyboard events
 
-#image_util import taken from 15112 site 
 import random, math, copy, string, ast, time
 from tkinter import*
-from image_util import*
-from Meet import *
-from ScheduleAlgorithms import*
-from GeneralAppFunctioning import*
+from modules.image_util import*
+from modules.Meet import *
+from modules.ScheduleAlgorithms import*
+from modules.GeneralAppFunctioning import*
 
 ####################################
 # Function specific to Meet Application for Client operation
@@ -44,7 +59,7 @@ from GeneralAppFunctioning import*
 
 def init(data):
   name = input("Enter Name: ")
-  calendar = input("Enter Schedule File: ")
+  calendar = input("Enter Schedule Filename (i.g. schedule1.txt): ")
   disturb = False
   data.me = Profile(name, disturb, calendar)
   data.otherFriends = dict()
@@ -52,9 +67,9 @@ def init(data):
   data.optionsMode = "Closed"
   data.startingMessage = ""
   #Tab icons       
-  data.meetImage = PhotoImage(file="meet.gif")
-  data.homeImage = PhotoImage(file="home.gif")
-  data.calImage = PhotoImage(file="calendar.gif")
+  data.meetImage = PhotoImage(file="assets/meet.gif")
+  data.homeImage = PhotoImage(file="assets/home.gif")
+  data.calImage = PhotoImage(file="assets/calendar.gif")
   
   #Calendar mode
   data.calMode = "cal"
@@ -1079,7 +1094,7 @@ def meetRedrawAll(canvas, data):
     canvas.create_text(data.width / 2, 4 * data.height / 11, text = data.failMsg, anchor = "center", font = ("hervetica", 11, "bold"))
 
 ####################################
-# use the run function as-is - framework taken from 15112 website
+#         run function             #
 ####################################
 
 def run(width, height, serverMsg = None, server = None):
