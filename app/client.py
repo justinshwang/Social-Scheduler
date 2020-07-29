@@ -737,7 +737,7 @@ def meetKeyPressed(event, data):
           if data.msg in string.whitespace or data.msg == "":
             data.warning = True
           elif data.priorityType:
-            p = set([None, "social", "eat", "work", "school", "sleep", \
+            p = set(["none", "social", "eat", "work", "school", "sleep", \
             "Social", "Eat", "Work", "School", "Sleep"])
             if data.msg in p:
               data.scheduleCheck = False

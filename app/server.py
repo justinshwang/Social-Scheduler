@@ -73,30 +73,25 @@ def serverThread(clientele, serverChannel):
 #Each client can be added 
 
 clientele = dict()
-playerNum = 0
 
-#Line of people 
-
+#Line of users
 serverChannel = Queue(100)
 threading.Thread(target = serverThread, args = (clientele, serverChannel)).start()
+clientNum= 0 
 
 #Accepts new players to server
-
-names = ["Eric", "Justin"]
 
 while True:
   client, address = server.accept()
   # myID is the key to the client in the clientele dictionary
-  print(playerNum, names)
-  myID = names[playerNum]
+  myID = clientNum
   for cID in clientele:
-    print (repr(cID), repr(playerNum))
     clientele[cID].send(("newFriend %s\n" % myID).encode())
     client.send(("newFriend %s\n" % cID).encode())
   clientele[myID] = client
   client.send(("myIDis %s \n" % myID).encode())
-  print("connection received from %s" % myID)
+  print("connection received from user %s" % myID)
   threading.Thread(target = handleClient, args = 
                         (client ,serverChannel, myID, clientele)).start()
-  playerNum += 1
+  clientNum += 1
     

@@ -36,7 +36,7 @@ class Calendar(object):
             db.update()
 
         # Retrieve data from database connection
-        self.schedule = db.retrieveSchedule(self.newCalendar)
+        self.schedule = db.retrieveSchedule(self.newCalendar())
         self.meetSchedule = dict()
 
     #Create new blank schedule framework
@@ -51,7 +51,7 @@ class Calendar(object):
                 pass
             if isinstance(date, int) and 1 <= date <= 31:
                 #Automatically set times for sleep 12-8AM
-                temp = [("free", "sleep", 0, 8.5)] 
+                temp = [("free", "sleep", 0, 8.5, "")] 
                 dates[(str(self.month), str(date))] = temp
         return dates
   
@@ -94,7 +94,6 @@ class Calendar(object):
         #Format this for better calendar
         canvas.create_text(x, y, text = hour + ":" + minute + timeOfDay, \
         anchor = "center", justify = "center", font = ("helvetica", textSize))
-      
       
     # # Format marked calendar dates or times from .txt file
     # def format(self, schedule):
