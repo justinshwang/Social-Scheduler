@@ -7,7 +7,7 @@ import threading
 from queue import Queue
 from settings import SERVER_HOST, SERVER_PORT
 
-def get_Host_name_IP(): 
+def get_Host(): 
     try: 
         if SERVER_HOST != "":
               return SERVER_HOST
@@ -20,7 +20,7 @@ def get_Host_name_IP():
     except: 
         print("Unable to get Hostname and IP")
 
-HOST = get_Host_name_IP()
+HOSTIP = get_Host()
 if SERVER_PORT != "":
   PORT = SERVER_PORT
 else:
@@ -28,7 +28,9 @@ else:
 BACKLOG = 4
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
-server.bind((HOST,PORT))
+server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+
+server.bind((HOSTIP,PORT))
 server.listen(BACKLOG)            
 print("looking for connection")
   
@@ -47,8 +49,7 @@ def handleClient(client, serverChannel, cID, clientele):
         serverChannel.put(str(cID) + " " + readyMsg)
         command = msg.split("\n")
     except:
-      # we failed
-      pass
+      print("Failed to connect")
 
 #Takes message from bin and extracts important information, sending back to client
 
@@ -94,7 +95,7 @@ while True:
     client.send(("newFriend %s\n" % cID).encode())
   clientele[myID] = client
   client.send(("myIDis %s \n" % myID).encode())
-  print("connection recieved from %s" % myID)
+  print("connection received from %s" % myID)
   threading.Thread(target = handleClient, args = 
                         (client ,serverChannel, myID, clientele)).start()
   playerNum += 1

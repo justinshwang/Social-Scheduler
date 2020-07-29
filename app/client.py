@@ -47,6 +47,7 @@ def handleServerMsg(server, serverMsg):
 # Barebones timer, mouse, and keyboard events
 
 import random, math, copy, string, ast, time
+import mysql.connector
 from tkinter import*
 from modules.image_util import*
 from modules.Meet import *
@@ -59,7 +60,7 @@ from modules.GeneralAppFunctioning import*
 
 def init(data):
   name = input("Enter Name: ")
-  calendar = input("Enter Schedule Filename (i.g. schedule1.txt): ")
+  calendar = input("Re-upload schedules? (y|n):")
   disturb = False
   data.me = Profile(name, disturb, calendar)
   data.otherFriends = dict()
@@ -196,7 +197,7 @@ def timerFired(data):
         name = msg[1]
         addNewClient(data, name)
       elif command == "myIDis":
-        passf
+        pass
       elif command == "giveMeSchedule":
         name = msg[1]
         sendSchedule(data, name)

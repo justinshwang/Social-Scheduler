@@ -1,4 +1,5 @@
 import calendar, datetime, math, string
+from modules import DB
 from tkinter import *
 
 ##Profile and Calendar classes describe a user's specific characteristics
@@ -60,6 +61,7 @@ class Calendar(object):
             #Seperate event by line
             for line in f:
                 line = line.strip()
+                print(line)
                 #Skip lines with comments or nothing
                 if line == "" or line[0] == "#":
                     continue
