@@ -20,7 +20,7 @@ def get_Host():
     except: 
         print("Unable to get Hostname and IP")
 
-HOSTIP = get_Host()
+HOST = get_Host()
 if SERVER_PORT != "":
   PORT = SERVER_PORT
 else:
@@ -30,7 +30,7 @@ BACKLOG = 4
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
 server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
-server.bind((HOSTIP,PORT))
+server.bind((HOST,PORT))
 server.listen(BACKLOG)            
 print("looking for connection")
   

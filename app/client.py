@@ -7,28 +7,27 @@ import threading
 from queue import Queue
 from settings import SERVER_HOST, SERVER_PORT
 
-def get_Host_name_IP(): 
-    try: 
-        if SERVER_HOST != "":
-              return SERVER_HOST
-        else:
-          host_name = socket.gethostname() 
-          host_ip = socket.gethostbyname(host_name) 
-          print("Hostname :  ",host_name) 
-          print("IP : ",host_ip) 
-          return host_ip
-    except: 
-        print("Unable to get Hostname and IP")
+def getHost(): 
+  if SERVER_PORT != "":
+    PORT = SERVER_PORT
+  else:
+    PORT = 80
+  try: 
+    if SERVER_HOST != "":
+          return (SERVER_HOST, PORT)
+    else:
+      host_name = socket.gethostname() 
+      host_ip = socket.gethostbyname(host_name) 
+      print("Hostname :  ",host_name) 
+      print("IP : ",host_ip) 
+      return (host_ip, PORT)
+  except: 
+      print("Unable to retrieve Hostname/IP. Please enter in settings.")
+      raise
 
-HOST = get_Host_name_IP() # put your IP address here if playing on multiple computers
-if SERVER_PORT != "":
-  PORT = SERVER_PORT
-else:
-  PORT = 80
-
+HOST, PORT = getHost()
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-server.connect((HOST,PORT))
+server.connect((HOST, PORT)) # put IP address here or settings.py if playing on multiple computers
 print("connected to server")
 
 def handleServerMsg(server, serverMsg):     
@@ -47,10 +46,9 @@ def handleServerMsg(server, serverMsg):
 # Barebones timer, mouse, and keyboard events
 
 import random, math, copy, string, ast, time
-import mysql.connector
 from tkinter import*
 from modules.image_util import*
-from modules.Meet import *
+from modules.Meet import*
 from modules.ScheduleAlgorithms import*
 from modules.GeneralAppFunctioning import*
 
@@ -60,9 +58,9 @@ from modules.GeneralAppFunctioning import*
 
 def init(data):
   name = input("Enter Name: ")
-  calendar = input("Re-upload schedules? (y|n):")
+  update_calendar = input("Re-upload schedules? (y|n):")
   disturb = False
-  data.me = Profile(name, disturb, calendar)
+  data.me = Profile(name, disturb, update_calendar, HOST)
   data.otherFriends = dict()
   data.mode = "Home"
   data.optionsMode = "Closed"
