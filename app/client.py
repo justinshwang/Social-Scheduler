@@ -208,7 +208,7 @@ def timerFired(data):
         else:
           disturb = False
         #Create instance of Profile in friend with do not disturb defaulted to off or False
-        data.otherFriends[name] = Profile(name, disturb, schedule)
+        data.otherFriends[name] = Profile(name, disturb, schedule, HOST)
       elif command == "success":
         fullMsg = msg[1]
         #Print this message 
@@ -216,7 +216,7 @@ def timerFired(data):
         name = msg[2]
         month = msg[3]
         date = msg[4]
-        prioriity = msg[5]
+        priority = msg[5]
         start = msg[6]
         end = msg[7]
         title = msg[8]
@@ -565,10 +565,6 @@ def calRedrawAll(canvas, data):
     #Draw meet heading
     margin = data.width / 10
     tabHeight = data.height - data.height / 8
-    left = margin
-    top = data.height / 5
-    right = data.width - margin
-    bottom = tabHeight - margin
 
     #Sequence to taking user input display
   
@@ -636,7 +632,7 @@ def calRedrawAll(canvas, data):
                 #Animate for success
                 data.tabAnimate = True
             else:
-              result, msg = recommendTime(data, name).split("*")
+              result, msg = recommendTime(data).split("*")
               if result == "success":
                 #Add meeting to user's schedule
                 data.me.calendar.addMeeting(data.meetMonth, data.meetDate, \
@@ -882,7 +878,6 @@ def meetRedrawAll(canvas, data):
   left = margin
   top = data.height / 5
   right = data.width - margin
-  bottom = tabHeight - margin
   canvas.create_text(data.width / 2, (data.height / 9) + 12, text = "\"UP\"", fill = "gray" + str(data.fade), font = ("hervetica", 8, "bold"))
 
   #Draw friends' current availabilities

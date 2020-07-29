@@ -35,11 +35,10 @@ class Database(object):
         cursor.close()
         print("Done Updating Schedule!")
 
-    def retrieveSchedule(self):
+    def retrieveSchedule(self, calendar):
         print("Retrieving schedule...")
         schedule = []
-        
+
         print(schedule)
         print("Done Retrieving Schedule!")
-        return schedule
-
+        return calendar

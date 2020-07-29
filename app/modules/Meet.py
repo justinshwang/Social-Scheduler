@@ -35,7 +35,8 @@ class Calendar(object):
         if (update.lower() == "y"):
             db.update()
 
-        self.schedule = db.retrieveSchedule
+        # Retrieve data from database connection
+        self.schedule = db.retrieveSchedule(self.newCalendar)
         self.meetSchedule = dict()
 
     #Create new blank schedule framework
@@ -50,10 +51,51 @@ class Calendar(object):
                 pass
             if isinstance(date, int) and 1 <= date <= 31:
                 #Automatically set times for sleep 12-8AM
-                temp = [("free", "sleep", 0, 8.5, "Sleep")] 
+                temp = [("free", "sleep", 0, 8.5)] 
                 dates[(str(self.month), str(date))] = temp
         return dates
+  
+    #Add date to schedule
+    def addMeeting(self, month, day, start, end, priority, msg, name):
+        self.meetSchedule[(month, day)]= [(name, priority, start, end, msg)]
         
+    #Draw Calendar formatted properly
+    def drawCal(self, canvas, color, x, y):
+        #Text size is one 24th of board width
+        textSize = 14 
+        officialCal = str(calendar.month(self.year, self.month))
+        for i in range(len(officialCal)):
+            c = officialCal[i]
+            try:
+                n = int(c)
+            except:
+                pass
+        #Format this for better calendar
+        canvas.create_text(x, y, text = officialCal, fill = color, anchor = \
+        "center", justify = "center", font = ("helvetica", textSize))
+        
+    #Draw time
+    def drawTime(self, canvas, x, y):
+        t = datetime.datetime.now()
+        if t.hour > 12:
+            timeOfDay = "PM"
+        else:
+            timeOfDay = "AM"
+        hour = str(t.hour % 12)
+        if hour == "0":
+            hour = "12"
+        minute = t.minute 
+        if minute < 10:
+            minute = "0" + str(minute)
+        else:
+            minute = str(minute)
+        #Text size is one 30th of board width
+        textSize = 10
+        #Format this for better calendar
+        canvas.create_text(x, y, text = hour + ":" + minute + timeOfDay, \
+        anchor = "center", justify = "center", font = ("helvetica", textSize))
+      
+      
     # # Format marked calendar dates or times from .txt file
     # def format(self, schedule):
     #     dates = self.newCalendar()
@@ -120,44 +162,4 @@ class Calendar(object):
     #                 dates[(month, day)] = temp
     #     return dates
         
-    #Add date to schedule
-    def addMeeting(self, month, day, start, end, priority, msg, name):
-        self.meetSchedule[(month, day)]= [(name, priority, start, end, msg)]
-        
-    #Draw Calendar formatted properly
-    def drawCal(self, canvas, color, x, y):
-        #Text size is one 24th of board width
-        textSize = 14 
-        officialCal = str(calendar.month(self.year, self.month))
-        for i in range(len(officialCal)):
-            c = officialCal[i]
-            try:
-                n = int(c)
-            except:
-                pass
-        #Format this for better calendar
-        canvas.create_text(x, y, text = officialCal, fill = color, anchor = \
-        "center", justify = "center", font = ("helvetica", textSize))
-        
-    #Draw time
-    def drawTime(self, canvas, x, y):
-        t = datetime.datetime.now()
-        if t.hour > 12:
-            timeOfDay = "PM"
-        else:
-            timeOfDay = "AM"
-        hour = str(t.hour % 12)
-        if hour == "0":
-            hour = "12"
-        minute = t.minute 
-        if minute < 10:
-            minute = "0" + str(minute)
-        else:
-            minute = str(minute)
-        #Text size is one 30th of board width
-        textSize = 10
-        #Format this for better calendar
-        canvas.create_text(x, y, text = hour + ":" + minute + timeOfDay, \
-        anchor = "center", justify = "center", font = ("helvetica", textSize))
-
         
