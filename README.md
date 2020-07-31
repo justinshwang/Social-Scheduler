@@ -18,7 +18,7 @@ Application was reorganized and containerized using Docker.
     docker-compose up -d
     ```
 
-    Server can also be started up in 'app' directory
+    Server can also be started up manually
 
     ```
     py app/server.py
