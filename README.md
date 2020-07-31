@@ -1,9 +1,9 @@
 # Social Scheduler
 
-�Meet� is a tkinter application in which users upload their personal schedules and find different �meet up� times based on their availability via various 
+Meet is a tkinter application in which users upload their personal schedules and find different meet up times based on their availability via various 
 features for socializing and communicating using Python sockets. For example, a colored indicator will represent current availability (either available or not available) 
-and users will be able to manipulate availability spontaneously should an emergency arise or if they simply need �personal time.� Users can also indicate
- how they would prefer to spend certain times of the day for different activities such as �socializing�, �work�, �sleeping,� and �eating�.
+and users will be able to manipulate availability spontaneously should an emergency arise or if they simply need personal time. Users can also indicate
+ how they would prefer to spend certain times of the day for different activities such as socializing, work, sleeping, and eating.
 
 Application was reorganized and containerized using Docker. 
 
@@ -18,7 +18,7 @@ Application was reorganized and containerized using Docker.
     docker-compose up -d
     ```
 
-    Server can also be started up in 'app' directory
+    Server can also be started up manually
 
     ```
     py app/server.py
