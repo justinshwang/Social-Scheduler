@@ -8,5 +8,5 @@ Implements python Sockets for communication. From IDE, the user can run the serv
 Next, on the same command prompt or window, enter Name (which must be Eric and subsequently for other user Justin), press enter; enter schedule files. For schedule files 
 already included, enter "schedule1.txt" and for the other user "schedule2.txt".
 
-Application was reorganized and containerized using Docker and schedule uploading to a MySQL database and my-db volume. Requirements added to requirements.txt
+Application containerized using Docker and schedule uploading to a MySQL database and my-db volume. Requirements added to requirements.txt
 
