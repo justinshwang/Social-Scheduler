@@ -7,7 +7,7 @@ import threading
 from queue import Queue
 from settings import SERVER_HOST, SERVER_PORT
 
-def get_Host_name_IP(): 
+def get_Host(): 
     try: 
         if SERVER_HOST != "":
               return SERVER_HOST
@@ -20,7 +20,7 @@ def get_Host_name_IP():
     except: 
         print("Unable to get Hostname and IP")
 
-HOST = get_Host_name_IP()
+HOST = get_Host()
 if SERVER_PORT != "":
   PORT = SERVER_PORT
 else:
@@ -28,6 +28,8 @@ else:
 BACKLOG = 4
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
+server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+
 server.bind((HOST,PORT))
 server.listen(BACKLOG)            
 print("looking for connection")
@@ -47,8 +49,7 @@ def handleClient(client, serverChannel, cID, clientele):
         serverChannel.put(str(cID) + " " + readyMsg)
         command = msg.split("\n")
     except:
-      # we failed
-      pass
+      print("Failed to connect")
 
 #Takes message from bin and extracts important information, sending back to client
 
@@ -72,30 +73,25 @@ def serverThread(clientele, serverChannel):
 #Each client can be added 
 
 clientele = dict()
-playerNum = 0
 
-#Line of people 
-
+#Line of users
 serverChannel = Queue(100)
 threading.Thread(target = serverThread, args = (clientele, serverChannel)).start()
+clientNum= 0 
 
 #Accepts new players to server
-
-names = ["Eric", "Justin"]
 
 while True:
   client, address = server.accept()
   # myID is the key to the client in the clientele dictionary
-  print(playerNum, names)
-  myID = names[playerNum]
+  myID = clientNum
   for cID in clientele:
-    print (repr(cID), repr(playerNum))
     clientele[cID].send(("newFriend %s\n" % myID).encode())
     client.send(("newFriend %s\n" % cID).encode())
   clientele[myID] = client
   client.send(("myIDis %s \n" % myID).encode())
-  print("connection recieved from %s" % myID)
+  print("connection received from user %s" % myID)
   threading.Thread(target = handleClient, args = 
                         (client ,serverChannel, myID, clientele)).start()
-  playerNum += 1
+  clientNum += 1
     

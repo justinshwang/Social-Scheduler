@@ -7,28 +7,27 @@ import threading
 from queue import Queue
 from settings import SERVER_HOST, SERVER_PORT
 
-def get_Host_name_IP(): 
-    try: 
-        if SERVER_HOST != "":
-              return SERVER_HOST
-        else:
-          host_name = socket.gethostname() 
-          host_ip = socket.gethostbyname(host_name) 
-          print("Hostname :  ",host_name) 
-          print("IP : ",host_ip) 
-          return host_ip
-    except: 
-        print("Unable to get Hostname and IP")
+def getHost(): 
+  if SERVER_PORT != "":
+    PORT = SERVER_PORT
+  else:
+    PORT = 80
+  try: 
+    if SERVER_HOST != "":
+          return (SERVER_HOST, PORT)
+    else:
+      host_name = socket.gethostname() 
+      host_ip = socket.gethostbyname(host_name) 
+      print("Hostname :  ",host_name) 
+      print("IP : ",host_ip) 
+      return (host_ip, PORT)
+  except: 
+      print("Unable to retrieve Hostname/IP. Please enter in settings.")
+      raise
 
-HOST = get_Host_name_IP() # put your IP address here if playing on multiple computers
-if SERVER_PORT != "":
-  PORT = SERVER_PORT
-else:
-  PORT = 80
-
+HOST, PORT = getHost()
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-server.connect((HOST,PORT))
+server.connect((HOST, PORT)) # put IP address here or settings.py if playing on multiple computers
 print("connected to server")
 
 def handleServerMsg(server, serverMsg):     
@@ -49,7 +48,7 @@ def handleServerMsg(server, serverMsg):
 import random, math, copy, string, ast, time
 from tkinter import*
 from modules.image_util import*
-from modules.Meet import *
+from modules.Meet import*
 from modules.ScheduleAlgorithms import*
 from modules.GeneralAppFunctioning import*
 
@@ -59,9 +58,9 @@ from modules.GeneralAppFunctioning import*
 
 def init(data):
   name = input("Enter Name: ")
-  calendar = input("Enter Schedule Filename (i.g. schedule1.txt): ")
+  update_calendar = input("Re-upload schedules? (y|n):")
   disturb = False
-  data.me = Profile(name, disturb, calendar)
+  data.me = Profile(name, disturb, update_calendar, HOST)
   data.otherFriends = dict()
   data.mode = "Home"
   data.optionsMode = "Closed"
@@ -196,7 +195,7 @@ def timerFired(data):
         name = msg[1]
         addNewClient(data, name)
       elif command == "myIDis":
-        passf
+        pass
       elif command == "giveMeSchedule":
         name = msg[1]
         sendSchedule(data, name)
@@ -209,7 +208,7 @@ def timerFired(data):
         else:
           disturb = False
         #Create instance of Profile in friend with do not disturb defaulted to off or False
-        data.otherFriends[name] = Profile(name, disturb, schedule)
+        data.otherFriends[name] = Profile(name, disturb, schedule, HOST)
       elif command == "success":
         fullMsg = msg[1]
         #Print this message 
@@ -217,7 +216,7 @@ def timerFired(data):
         name = msg[2]
         month = msg[3]
         date = msg[4]
-        prioriity = msg[5]
+        priority = msg[5]
         start = msg[6]
         end = msg[7]
         title = msg[8]
@@ -566,10 +565,6 @@ def calRedrawAll(canvas, data):
     #Draw meet heading
     margin = data.width / 10
     tabHeight = data.height - data.height / 8
-    left = margin
-    top = data.height / 5
-    right = data.width - margin
-    bottom = tabHeight - margin
 
     #Sequence to taking user input display
   
@@ -637,7 +632,7 @@ def calRedrawAll(canvas, data):
                 #Animate for success
                 data.tabAnimate = True
             else:
-              result, msg = recommendTime(data, name).split("*")
+              result, msg = recommendTime(data).split("*")
               if result == "success":
                 #Add meeting to user's schedule
                 data.me.calendar.addMeeting(data.meetMonth, data.meetDate, \
@@ -742,7 +737,7 @@ def meetKeyPressed(event, data):
           if data.msg in string.whitespace or data.msg == "":
             data.warning = True
           elif data.priorityType:
-            p = set([None, "social", "eat", "work", "school", "sleep", \
+            p = set(["none", "social", "eat", "work", "school", "sleep", \
             "Social", "Eat", "Work", "School", "Sleep"])
             if data.msg in p:
               data.scheduleCheck = False
@@ -883,7 +878,6 @@ def meetRedrawAll(canvas, data):
   left = margin
   top = data.height / 5
   right = data.width - margin
-  bottom = tabHeight - margin
   canvas.create_text(data.width / 2, (data.height / 9) + 12, text = "\"UP\"", fill = "gray" + str(data.fade), font = ("hervetica", 8, "bold"))
 
   #Draw friends' current availabilities
